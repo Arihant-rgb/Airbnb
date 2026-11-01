@@ -1,0 +1,27 @@
+{
+  "name": "airbnb",
+  "version": "1.0.0",
+  "description": "A full-stack Airbnb-inspired web application featuring property listings, user authentication, booking management, reviews, and CRUD operations, built with Node.js, Express.js, MongoDB, and EJS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arihant-rgb/Airbnb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Arihant-rgb/Airbnb/issues"
+  },
+  "homepage": "https://github.com/Arihant-rgb/Airbnb#readme",
+  "dependencies": {
+    "ejs": "^7.0.2",
+    "express": "^5.3.0",
+    "mongoose": "^9.11.4",
+    "nodemon": "^3.1.14"
+  }
+}

@@ -5,11 +5,13 @@ const PORT=8080;
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const Listing= require("./models/listing.js");
 const path= require("path");
+const methodOverride= require("method-override");
 
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));
+app.use(methodOverride("_method"));
 
 main()
 .then(()=>{
@@ -43,6 +45,26 @@ app.post("/listings", async(req,res)=>{
     await newListing.save();
     res.redirect("/listings");
 })
+
+app.get("/listings/:id/edit", async(req,res)=>{
+    const {id}= req.params;
+    let listing= await Listing.findById(id);
+    res.render("listings/edit.ejs",{listing});
+})
+
+app.put("/listings/:id",async(req,res)=>{
+    let {id}= req.params;
+    await Listing.findByIdAndUpdate(id,req.body.listing);
+    res.redirect(`/listings/${id}`);
+})
+
+app.delete("/listings/:id", async(req,res)=>{
+    let {id}= req.params;
+    let deletedListing= await Listing.findByIdAndDelete(id);
+    console.log(deletedListing);
+    res.redirect("/listings");
+})
+
 app.listen(PORT, ()=>{
     console.log(`Server is running on port ${PORT}`);
 })

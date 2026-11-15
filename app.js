@@ -9,6 +9,7 @@ const path= require("path");
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
+app.use(express.urlencoded({extended:true}));
 
 main()
 .then(()=>{
@@ -22,11 +23,26 @@ async function main(){
     await mongoose.connect(MONGO_URL);
 }
 
-app.get("/",async (req,res)=>{
+app.get("/listings",async (req,res)=>{
     const allListings= await Listing.find({});
     res.render("listings/index.ejs",{allListings});
 })
 
+app.get("/listings/new", (req,res)=>{
+    res.render("listings/new.ejs");
+})
+
+app.get("/listings/:id",async (req,res)=>{
+    const {id}= req.params;
+    let listing= await Listing.findById(id);
+    res.render("listings/show.ejs",{listing});
+})
+
+app.post("/listings", async(req,res)=>{
+    const newListing= new Listing(req.body.listing);
+    await newListing.save();
+    res.redirect("/listings");
+})
 app.listen(PORT, ()=>{
     console.log(`Server is running on port ${PORT}`);
 })

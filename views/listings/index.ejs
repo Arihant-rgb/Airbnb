@@ -5,15 +5,19 @@
 
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
         <%for(let listing of allListings){%>
-            <section class="card col">
-                <img src="<%= listing.image%>" class="card-img-top" alt="image_listing">
+            <a href="/listings/<%=listing._id%>" class="listing-link">
+                <section class="card col">
+                <img src="<%= listing.image%>" class="card-img-top" alt="image_listing" height="320 px">
+                <div class="card-img-overlay"></div>
                 <div class="card-body">
                     <p class="card-text">
-                        <%= listing.title%><br />
+                        <b><%= listing.title%></b>
+                        <br/>
                         &#8377 <%=listing.price.toLocaleString("en-IN")%> / night
                     </p>
                 </div>
-            </section>
+                </section>
+            </a>
             <%}%>
     </div>
 </body>
